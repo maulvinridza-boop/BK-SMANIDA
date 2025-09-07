@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bimbingan Konseling Sekolah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .active-nav {
+            color: #3b82f6;
+            border-bottom: 2px solid #3b82f6;
+            font-weight: 600;
+        }
+        .nav-item {
+            cursor: pointer;
+            padding: 1rem 0;
+            transition: all 0.2s ease-in-out;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-item:hover {
+            color: #3b82f6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+
+    <div id="app" class="max-w-4xl mx-auto p-4 md:p-6">
+        
+        <!-- Header -->
+        <header class="bg-white rounded-xl shadow-md p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-blue-600">Layanan Bimbingan Konseling</h1>
+                    <p class="text-gray-500 mt-1">Solusi dan dukungan untuk setiap siswa.</p>
+                </div>
+                <div class="text-3xl text-blue-500">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="bg-white rounded-xl shadow-md mb-6 sticky top-4 z-30">
+            <div id="nav-container" class="flex justify-around text-center text-gray-600 font-medium">
+                <div class="nav-item active-nav w-full" onclick="showPage('home')"><i class="fas fa-home mr-2"></i>Beranda</div>
+                <div class="nav-item w-full" onclick="showPage('jadwal')"><i class="fas fa-calendar-check mr-2"></i>Jadwal Konsultasi</div>
+                <div class="nav-item w-full" onclick="showPage('curhat')"><i class="fas fa-comment-dots mr-2"></i>Curhat Online</div>
+                <div class="nav-item w-full" onclick="showPage('materi')"><i class="fas fa-book-open mr-2"></i>Materi</div>
+                <div class="nav-item w-full" onclick="showPage('konselor')"><i class="fas fa-user-tie mr-2"></i>Profil Konselor</div>
+            </div>
+        </nav>
+
+        <main id="main-content">
+            <!-- Beranda Page -->
+            <div id="home-page">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Welcome Card -->
+                    <div class="card p-6 md:col-span-2">
+                        <h2 class="text-xl font-bold mb-2">Selamat Datang!</h2>
+                        <p class="text-gray-600">Aplikasi ini hadir untuk membantumu menavigasi tantangan akademik, karir, dan pengembangan pribadi. Jangan ragu untuk mencari bantuan. Kami di sini untukmu!</p>
+                    </div>
+                    
+                    <!-- Feature Cards -->
+                    <div class="card p-6 flex flex-col items-center text-center cursor-pointer" onclick="showPage('jadwal')">
+                        <div class="bg-blue-100 text-blue-500 rounded-full h-16 w-16 flex items-center justify-center mb-4">
+                            <i class="fas fa-calendar-alt text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Buat Janji Temu</h3>
+                        <p class="text-gray-500 text-sm mt-1">Atur jadwal sesi konseling pribadi dengan konselor pilihanmu.</p>
+                    </div>
+
+                    <div class="card p-6 flex flex-col items-center text-center cursor-pointer" onclick="showPage('materi')">
+                        <div class="bg-green-100 text-green-500 rounded-full h-16 w-16 flex items-center justify-center mb-4">
+                            <i class="fas fa-lightbulb text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Sumber Daya & Materi</h3>
+                        <p class="text-gray-500 text-sm mt-1">Temukan artikel, video, dan tips bermanfaat untuk pengembangan dirimu.</p>
+                    </div>
+
+                    <div class="card p-6 flex flex-col items-center text-center cursor-pointer" onclick="showPage('konselor')">
+                         <div class="bg-purple-100 text-purple-500 rounded-full h-16 w-16 flex items-center justify-center mb-4">
+                            <i class="fas fa-users text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Kenali Konselor</h3>
+                        <p class="text-gray-500 text-sm mt-1">Lihat profil konselor yang siap membantumu.</p>
+                    </div>
+
+                    <div class="card p-6 flex flex-col items-center text-center">
+                         <div class="bg-yellow-100 text-yellow-500 rounded-full h-16 w-16 flex items-center justify-center mb-4">
+                            <i class="fas fa-question-circle text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Tanya Jawab Umum</h3>
+                        <p class="text-gray-500 text-sm mt-1">Temukan jawaban dari pertanyaan yang sering diajukan seputar BK.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jadwal Konsultasi Page -->
+            <div id="jadwal-page" class="hidden">
+                <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-4">Formulir Pengajuan Jadwal Konsultasi</h2>
+                    <form id="appointment-form">
+                        <div class="mb-4">
+                            <label for="student-name" class="block text-gray-700 font-medium mb-2">Nama Lengkap</label>
+                            <input type="text" id="student-name" name="student-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Masukkan nama lengkap Anda" required>
+                        </div>
+                         <div class="mb-4">
+                            <label for="student-class" class="block text-gray-700 font-medium mb-2">Kelas</label>
+                            <input type="text" id="student-class" name="student-class" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: XII IPA 1" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="counselor" class="block text-gray-700 font-medium mb-2">Pilih Konselor</label>
+                            <select id="counselor" name="counselor" class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                                <option value="" disabled selected>-- Pilih salah satu --</option>
+                                <option value="Nela Eliza, M.Pd">Nela Eliza, M.Pd</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                             <label for="counseling-date" class="block text-gray-700 font-medium mb-2">Pilih Tanggal</label>
+                             <input type="date" id="counseling-date" name="counseling-date" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="counseling-topic" class="block text-gray-700 font-medium mb-2">Topik Konsultasi</label>
+                            <textarea id="counseling-topic" name="counseling-topic" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Jelaskan secara singkat topik yang ingin Anda diskusikan" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Ajukan Jadwal</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Curhat Online Page -->
+            <div id="curhat-page" class="hidden">
+                <div class="card p-6">
+                    <div class="text-center mb-6">
+                        <div class="bg-red-100 text-red-500 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-lock text-2xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">Ruang Curhat Online (Anonim & Rahasia)</h2>
+                        <p class="text-gray-500 mt-1">Tuliskan apa yang kamu rasakan tanpa perlu khawatir. Pesanmu akan dikirim secara anonim dan hanya akan dibaca oleh Guru BK.</p>
+                    </div>
+                    <form id="curhat-form">
+                        <div class="mb-4">
+                            <label for="curhat-message" class="block text-gray-700 font-medium mb-2">Pesanmu:</label>
+                            <textarea id="curhat-message" name="curhat-message" rows="8" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="Ceritakan masalahmu di sini..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-red-700 transition duration-300">
+                            <i class="fas fa-paper-plane mr-2"></i>Kirim Pesan Rahasia
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Materi Page -->
+            <div id="materi-page" class="hidden">
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card p-5">
+                        <img src="https://placehold.co/600x400/3B82F6/FFFFFF?text=Manajemen+Stres" alt="Manajemen Stres" class="rounded-lg mb-4 w-full h-40 object-cover">
+                        <h3 class="font-bold text-lg mb-2">Mengelola Stres Saat Ujian</h3>
+                        <p class="text-gray-600 text-sm mb-4">Pelajari teknik relaksasi dan strategi efektif untuk tetap tenang dan fokus selama masa ujian.</p>
+                        <a href="#" class="text-blue-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
+                    </div>
+                     <div class="card p-5">
+                        <img src="https://placehold.co/600x400/10B981/FFFFFF?text=Pilihan+Karir" alt="Pilihan Karir" class="rounded-lg mb-4 w-full h-40 object-cover">
+                        <h3 class="font-bold text-lg mb-2">Menentukan Jurusan Kuliah</h3>
+                        <p class="text-gray-600 text-sm mb-4">Bingung pilih jurusan? Temukan tips untuk mengenali minat dan bakatmu agar tak salah pilih.</p>
+                        <a href="#" class="text-blue-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
+                    </div>
+                     <div class="card p-5">
+                        <img src="https://placehold.co/600x400/F59E0B/FFFFFF?text=Kesehatan+Mental" alt="Kesehatan Mental" class="rounded-lg mb-4 w-full h-40 object-cover">
+                        <h3 class="font-bold text-lg mb-2">Pentingnya Kesehatan Mental</h3>
+                        <p class="text-gray-600 text-sm mb-4">Kesehatan mental sama pentingnya dengan kesehatan fisik. Kenali tanda-tandanya dan cara menjaganya.</p>
+                        <a href="#" class="text-blue-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
+                    </div>
+                     <div class="card p-5">
+                        <img src="https://placehold.co/600x400/EF4444/FFFFFF?text=Anti-Bullying" alt="Anti-Bullying" class="rounded-lg mb-4 w-full h-40 object-cover">
+                        <h3 class="font-bold text-lg mb-2">Stop Perundungan (Bullying)!</h3>
+                        <p class="text-gray-600 text-sm mb-4">Apa itu perundungan dan bagaimana cara menyikapinya? Jadilah bagian dari solusi.</p>
+                        <a href="#" class="text-blue-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Profil Konselor Page -->
+            <div id="konselor-page" class="hidden">
+                 <div class="space-y-6">
+                     <div class="card p-6 flex flex-col md:flex-row items-center gap-6">
+                        <img src="https://placehold.co/150x150/E2E8F0/334155?text=N.E" alt="Foto Nela Eliza" class="w-32 h-32 rounded-full object-cover border-4 border-green-200">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-xl font-bold">Nela Eliza, M.Pd</h3>
+                            <p class="text-green-600 font-medium">Konselor Bidang Pribadi & Sosial</p>
+                            <p class="text-gray-600 mt-2 text-sm">"Tidak apa-apa untuk merasa tidak baik-baik saja. Ruang konseling adalah tempat aman untuk berbagi cerita. Saya di sini untuk mendengarkan tanpa menghakimi."</p>
+                             <p class="text-sm mt-3 text-gray-500"><i class="fas fa-envelope mr-2"></i>nela.e@sekolah.id</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Pemberitahuan -->
+    <div id="success-modal" class="hidden">
+        <div class="modal-backdrop" onclick="closeModal()"></div>
+        <div class="modal w-11/12 max-w-sm bg-white rounded-lg shadow-lg p-6 text-center">
+            <div id="modal-icon" class="bg-green-100 text-green-500 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check-circle text-4xl"></i>
+            </div>
+            <h3 id="modal-title" class="text-xl font-bold mb-2">Pengajuan Berhasil!</h3>
+            <p id="modal-message" class="text-gray-600 mb-4">Jadwal konsultasimu telah kami terima. Konselor akan segera menghubungimu untuk konfirmasi. Mohon tunggu, ya.</p>
+            <button onclick="closeModal()" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Tutup</button>
+        </div>
+    </div>
+
+
+    <script>
+        const pages = ['home', 'jadwal', 'curhat', 'materi', 'konselor'];
+        const navItems = document.querySelectorAll('.nav-item');
+        const appointmentForm = document.getElementById('appointment-form');
+        const curhatForm = document.getElementById('curhat-form');
+        const successModal = document.getElementById('success-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalIcon = document.getElementById('modal-icon');
+
+
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            pages.forEach(page => {
+                document.getElementById(`${page}-page`).classList.add('hidden');
+            });
+            
+            // Tampilkan halaman yang dipilih
+            document.getElementById(`${pageId}-page`).classList.remove('hidden');
+
+            // Update status aktif pada navigasi
+            navItems.forEach(item => {
+                item.classList.remove('active-nav');
+                if (item.getAttribute('onclick') === `showPage('${pageId}')`) {
+                    item.classList.add('active-nav');
+                }
+            });
+
+            window.scrollTo(0, 0);
+        }
+        
+        // Atur tanggal minimal untuk input date
+        function setMinDate() {
+            const dateInput = document.getElementById('counseling-date');
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            let mm = today.getMonth() + 1; // Months start at 0!
+            let dd = today.getDate();
+
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+
+            const minDate = yyyy + '-' + mm + '-' + dd;
+            dateInput.setAttribute('min', minDate);
+        }
+
+        appointmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Di aplikasi nyata, data ini akan dikirim ke server.
+            const formData = new FormData(this);
+            console.log("Formulir Jadwal diajukan:");
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}: ${value}`);
+            }
+            
+            // Atur pesan modal untuk pengajuan jadwal
+            modalIcon.className = "bg-green-100 text-green-500 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4";
+            modalIcon.innerHTML = '<i class="fas fa-check-circle text-4xl"></i>';
+            modalTitle.textContent = 'Pengajuan Berhasil!';
+            modalMessage.textContent = 'Jadwal konsultasimu telah kami terima. Konselor akan segera menghubungimu untuk konfirmasi. Mohon tunggu, ya.';
+            
+            successModal.classList.remove('hidden');
+            this.reset();
+        });
+
+        curhatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Di aplikasi nyata, data ini akan dikirim ke server.
+            const curhatMessage = document.getElementById('curhat-message').value;
+            console.log("Pesan Curhat Terkirim (Anonim):", curhatMessage);
+
+            // Atur pesan modal untuk curhat
+            modalIcon.className = "bg-blue-100 text-blue-500 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4";
+            modalIcon.innerHTML = '<i class="fas fa-paper-plane text-4xl"></i>';
+            modalTitle.textContent = 'Pesan Terkirim!';
+            modalMessage.textContent = 'Curhatmu telah berhasil dikirim secara anonim. Guru BK akan membacanya. Kamu hebat sudah berani bercerita.';
+
+            successModal.classList.remove('hidden');
+            this.reset();
+        });
+
+        function closeModal() {
+            successModal.classList.add('hidden');
+        }
+
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+            setMinDate();
+        });
+
+    </script>
+</body>
+</html>
+
+
+
